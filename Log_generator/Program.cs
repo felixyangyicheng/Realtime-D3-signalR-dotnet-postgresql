@@ -45,7 +45,8 @@ class Program
 public class tbllog
 {
     public int Id { get; set; }
-    public string Value { get; set; }
+    public int Value { get; set; }
+    public string Detail { get; set; }
     public DateTime LogDate { get; set; }
 }
 
@@ -55,7 +56,8 @@ static class Applog
     {
         tbllog objdata = new tbllog()
         {
-            Value = "Operation-Code~" + Utilities.RandomNumber(1, 1000),
+            Detail = "Operation-Code~" + Utilities.RandomNumber(1, 1000),
+            Value = Utilities.RandomNumber(1,100),
             LogDate = DateTime.UtcNow
         };
 

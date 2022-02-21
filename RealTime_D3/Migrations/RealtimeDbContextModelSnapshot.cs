@@ -51,14 +51,14 @@ namespace RealTime_D3.Migrations
                         new
                         {
                             Id = "b5a136a0-dc53-4e4e-b5e0-68d10b70fe02",
-                            ConcurrencyStamp = "b0c314fa-da90-4d3c-b324-d09b140f1848",
+                            ConcurrencyStamp = "a598d057-9622-4c66-af81-de0c52e65649",
                             Name = "Monitor",
                             NormalizedName = "MONITEUR"
                         },
                         new
                         {
                             Id = "d9e1208e-5301-4fc9-8db0-f2562714a991",
-                            ConcurrencyStamp = "2e725796-3d3a-4140-b940-1dd1ba335d83",
+                            ConcurrencyStamp = "fc2dab1c-0e5d-443d-b85c-2ba1fe1739bb",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -260,12 +260,15 @@ namespace RealTime_D3.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Detail")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("LogDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("Value")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -291,15 +294,15 @@ namespace RealTime_D3.Migrations
                         {
                             Id = "43c38655-9aa0-48b4-aab1-7cd175500f09",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "899b770f-dc47-4b7f-8a19-6afd40773ff1",
+                            ConcurrencyStamp = "98b03461-e0b5-41c6-a655-9035ef7817b6",
                             Email = "yicheng.yang@ermo-tech.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "YICHENG.YANG@ERMO-TECH.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGHWervEkghXUyMpxNr1HBX5qpHf6TQiDUsZn6vgMzxybWGZOlZ/m7EIykoP13/9zA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAED8itZZDRNZNdooSuErQQvUVod1aZyXdBc3TdaE6EuyubJG2jh4ln5c7H9qQ5+N8/g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3951412f-bdb6-4d3d-afaa-86f0b748082a",
+                            SecurityStamp = "4af55488-8a67-4e4f-a0c5-227ad009406c",
                             TwoFactorEnabled = false,
                             UserName = "Admin",
                             FirstName = "System",
@@ -309,15 +312,15 @@ namespace RealTime_D3.Migrations
                         {
                             Id = "5bda2409-9516-4983-90a3-08363427e744",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "731bb854-23c7-47df-8918-bed671956056",
+                            ConcurrencyStamp = "bbe549e6-dae6-43a7-af6c-bed22345876f",
                             Email = "user@ermo-tech.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@ERMO-TECH.COM",
                             NormalizedUserName = "USER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDardO42d8TYk3OKHQ7Qa9++CXKP2RnKXVIyRbs6MAraA/iJvxXzaylvvLxxrpJOMw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIpWszrlvDyMuQRvW0N1RL8+5PIzS4ueTAfBunMLb+LC4AUXsJZl4I84DEuWr0uaVg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "278faf23-9b60-4bc0-ad91-37c0b9056137",
+                            SecurityStamp = "90acc0c0-d354-487d-9ce3-81b452aecf4d",
                             TwoFactorEnabled = false,
                             UserName = "user",
                             FirstName = "System",

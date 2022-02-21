@@ -19,7 +19,7 @@ namespace RealTime_D3.Extensions
         public async Task BrokerConfig()
         {
             var builder = WebApplication.CreateBuilder();
-
+            Console.WriteLine(builder.Configuration.GetConnectionString("postgresql"));
             await using var con = new NpgsqlConnection(builder.Configuration.GetConnectionString("postgresql"));
             await con.OpenAsync();
             con.Notification += LogNotificationHelper;

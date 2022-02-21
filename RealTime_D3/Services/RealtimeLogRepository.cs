@@ -22,7 +22,6 @@ namespace RealTime_D3.Services
         }
         public async Task GetLastLog()
         {
-            var builder = WebApplication.CreateBuilder();
 
             await using var con = new NpgsqlConnection(connectionString);
             await con.OpenAsync();
@@ -45,7 +44,7 @@ namespace RealTime_D3.Services
         {
             //Deserialize Payload Data 
             var dataPayload = JsonConvert.DeserializeObject<tbllogInfo>(e.Payload);
-            Console.WriteLine("{0}", dataPayload.table + " :: " + dataPayload.action + " :: " + dataPayload.data.Value);
+            Console.WriteLine("{0}", dataPayload.table + " :: " + dataPayload.action + " :: " + dataPayload.data.Detail+" :: " + dataPayload.data.Value);
             _context.Clients.All.SendAsync("refreshLog", dataPayload);
 
             //Notify Client using SignalR
