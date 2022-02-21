@@ -14,16 +14,40 @@ namespace RealTime_D3.Controllers
     {
         private readonly ILogger<TbllogController> _logger;
         private readonly ITbllogRepository _tbllogRepository;
+        private readonly IRealtimeLogRepository _realtime;
+
         private readonly IMapper _mapper;
         //private readonly IEmailSender _emailSender;
 
-        public TbllogController(ILogger<TbllogController> logger, ITbllogRepository tbllogRepository, IMapper mapper)
+        public TbllogController(ILogger<TbllogController> logger, ITbllogRepository tbllogRepository, IRealtimeLogRepository realtime , IMapper mapper)
         //, IEmailSender emailSender)
         {
             _tbllogRepository = tbllogRepository;
+            _realtime = realtime;
             _mapper = mapper;
             _logger = logger;
             //_emailSender = emailSender;
+        }
+
+        [HttpGet("realtime")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetLogRealtime()
+        {
+            try
+            {
+                await _realtime.GetLastLog();
+                
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Something went wrong in the {nameof(GetLogRealtime)}");
+                //var message = new Message(new string[] { "yicheng.yang@ermo-tech.com", "ermo.automation@ermo-tech.com" }, "API Exception ", $"Something went wrong in the {nameof(GetGroupedStatusByTimeRange)}" + ex.ToString());
+                //await _emailSender.SendEmailAsync(message);
+                return Problem($"Something went wrong in the {nameof(GetLogRealtime)}", statusCode: 500);
+            }
         }
 
         [HttpGet("{id:int}")]
