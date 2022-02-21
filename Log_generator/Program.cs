@@ -4,7 +4,7 @@ using System.Text;
 class Program
 {
     static tbllog logModel = null;
-    static string baseUrl = "http://localhost:52985/";
+    static string baseUrl = "https://localhost:44350/";
     static void Main(string[] args)
     {
         while (true)
@@ -17,22 +17,27 @@ class Program
                     using (var client = new HttpClient())
                     {
                         string contentType = "application/json";
-                        string PostUrl = baseUrl + "api/log/setLogData";
+                        string PostUrl = baseUrl + "api/tbllog";
                         var content = new StringContent(JsonConvert.SerializeObject(logModel), Encoding.UTF8, contentType);
                         using (HttpResponseMessage response = client.PostAsync(PostUrl, content).Result)
                         {
                             if (response.IsSuccessStatusCode)
                                 Console.WriteLine("{0}", logModel.Value);
+                            else
+                            {
+                                Console.WriteLine("{0}", response);
+
+                            }
                         }
                     }
                 }
             }
             catch (Exception)
             {
-                //Console.WriteLine("{0}", "Error");
+                Console.WriteLine("{0}", "Error");
             }
 
-            Thread.Sleep(1000);
+            Thread.Sleep(8000);
         }
     }
 }
@@ -51,7 +56,7 @@ static class Applog
         tbllog objdata = new tbllog()
         {
             Value = "Operation-Code~" + Utilities.RandomNumber(1, 1000),
-            LogDate = DateTime.Now
+            LogDate = DateTime.UtcNow
         };
 
         return objdata;

@@ -51,6 +51,7 @@ builder.Host.UseSerilog((ctx, lc) =>
 
 
 builder.Services.AddScoped<ITbllogRepository, TbllogRepository>();
+builder.Services.AddScoped<IRealtimeLogRepository, RealtimeLogRepository>();
 
 
 
