@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealTime_D3", "RealTime_D3.csproj", "{6DE6FAB7-7397-474C-B7DE-8A7B25E8EEED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Log_generator", "..\Log_generator\Log_generator.csproj", "{1B7D3308-3692-48A8-895E-FEFCB26BC11F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{6DE6FAB7-7397-474C-B7DE-8A7B25E8EEED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DE6FAB7-7397-474C-B7DE-8A7B25E8EEED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6DE6FAB7-7397-474C-B7DE-8A7B25E8EEED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B7D3308-3692-48A8-895E-FEFCB26BC11F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B7D3308-3692-48A8-895E-FEFCB26BC11F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B7D3308-3692-48A8-895E-FEFCB26BC11F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B7D3308-3692-48A8-895E-FEFCB26BC11F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
