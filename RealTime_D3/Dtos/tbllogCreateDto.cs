@@ -2,7 +2,9 @@
 {
     public class tbllogCreateDto
     {
-        public string Value { get; set; }
+        public string Detail { get; set; }
+
+        public int Value { get; set; }
         public DateTime LogDate { get; set; }
     }
 }

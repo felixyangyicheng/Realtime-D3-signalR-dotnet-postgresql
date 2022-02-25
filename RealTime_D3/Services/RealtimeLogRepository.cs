@@ -44,8 +44,10 @@ namespace RealTime_D3.Services
         {
             //Deserialize Payload Data 
             var dataPayload = JsonConvert.DeserializeObject<tbllogInfo>(e.Payload);
-            Console.WriteLine("{0}", dataPayload.table + " :: " + dataPayload.action + " :: " + dataPayload.data.Detail+" :: " + dataPayload.data.Value);
-            _context.Clients.All.SendAsync("refreshLog", dataPayload);
+            //Console.WriteLine("{0}", dataPayload.table + " :: " + dataPayload.action + " :: " + dataPayload.data.Detail+" :: " + dataPayload.data.Value);
+            Console.WriteLine("{0}", e.Payload);
+
+            _context.Clients.All.SendAsync("refreshLog", dataPayload.data);
 
             //Notify Client using SignalR
         }
