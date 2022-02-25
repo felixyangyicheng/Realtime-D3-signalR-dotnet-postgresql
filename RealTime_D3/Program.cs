@@ -33,7 +33,14 @@ builder.Services.AddDbContext<RealtimeDbContext>(options => options.UseNpgsql(co
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddCors(policy =>
+{
+    policy.AddPolicy("CorsPolicy", opt => opt
+        .WithOrigins("https://localhost:7275")
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowCredentials());
+});
 builder.Services.AddAutoMapper(typeof(MapperConfig));
 
 builder.Services.AddIdentityCore<ApiUser>()
@@ -89,7 +96,7 @@ if (app.Environment.IsDevelopment())
 app.UseRouting();
 app.UseHttpsRedirection();
 
-app.UseCors("AllowAll");
+app.UseCors("CorsPolicy");
 
 app.UseAuthorization();
 

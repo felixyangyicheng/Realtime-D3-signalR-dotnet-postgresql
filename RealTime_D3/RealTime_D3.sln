@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealTime_D3", "RealTime_D3.csproj", "{6DE6FAB7-7397-474C-B7DE-8A7B25E8EEED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RealTime_D3", "RealTime_D3.csproj", "{6DE6FAB7-7397-474C-B7DE-8A7B25E8EEED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Log_generator", "..\Log_generator\Log_generator.csproj", "{1B7D3308-3692-48A8-895E-FEFCB26BC11F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Log_generator", "..\Log_generator\Log_generator.csproj", "{1B7D3308-3692-48A8-895E-FEFCB26BC11F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Realtime_D3_WASM", "..\Realtime_D3_WASM\Realtime_D3_WASM.csproj", "{D41BBB12-6450-4352-A80F-A8A0B9325BA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{1B7D3308-3692-48A8-895E-FEFCB26BC11F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B7D3308-3692-48A8-895E-FEFCB26BC11F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B7D3308-3692-48A8-895E-FEFCB26BC11F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D41BBB12-6450-4352-A80F-A8A0B9325BA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D41BBB12-6450-4352-A80F-A8A0B9325BA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D41BBB12-6450-4352-A80F-A8A0B9325BA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D41BBB12-6450-4352-A80F-A8A0B9325BA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
