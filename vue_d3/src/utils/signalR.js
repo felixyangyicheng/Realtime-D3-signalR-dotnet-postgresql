@@ -1,9 +1,10 @@
 import * as signalR from '@microsoft/signalr'
 
-const signal = new signalR.HubConnectionBuilder()
+const signalr = new signalR.HubConnectionBuilder()
+  .withAutomaticReconnect()
     .withUrl('https://localhost:44350/loghub/', {})
     .build()
-
+    signalr.start().catch(err=>alert(err.message));
 /* const signalr = function () {
   var hub
   if (hub === undefined) {
@@ -29,6 +30,6 @@ signal.onclose(async () => {
 export default {
 
     install: function(Vue) {
-        Vue.prototype.signalr = signal
+        Vue.prototype.signalr = signalr
     }
 }

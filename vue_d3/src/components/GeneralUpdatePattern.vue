@@ -11,6 +11,7 @@ export default {
     return {}
   },
   mounted () {
+    this.signaR.initSR()
     let alphbet = 'abcdefghijklmnopqrstuvwxyz'.split('')
     let svg = d3.select('svg')
     // let width = +svg.attr('width')
