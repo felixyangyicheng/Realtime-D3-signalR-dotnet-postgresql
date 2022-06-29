@@ -30,7 +30,7 @@ $function$
 ALTER FUNCTION public."NotifyLastLogChange"()
     OWNER TO admin;
     
-CREATE TRIGGER "OnLastLogChange"
+CREATE OR REPLACE TRIGGER "OnLastLogChange"
     AFTER INSERT OR DELETE OR UPDATE 
     ON public."Tbllogs" 
     FOR EACH ROW

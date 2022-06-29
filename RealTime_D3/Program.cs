@@ -36,14 +36,13 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddCors(policy =>
 {
     policy.AddPolicy("CorsPolicy", opt => opt
-        .WithOrigins(
-        //"https://localhost:7275", 
-        "http://127.0.0.1:5500/"
-        )
+        .WithOrigins("https://localhost:7275", "http://127.0.0.1:5500/")
+        //.AllowAnyOrigin()
         .AllowAnyHeader()
-        .AllowAnyMethod()
+        //.AllowAnyMethod()
+    .WithMethods("GET", "POST")
         .AllowCredentials()
-        //.SetIsOriginAllowed((host) => true)
+        .SetIsOriginAllowed((host) => true)
         );
 });
 builder.Services.AddAutoMapper(typeof(MapperConfig));

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<style>
+
+body {
+  font: 10px sans-serif;
+}
+
+div {
+  padding-left: 50px;
+  padding-top: 15px;
+  width: 50%;
+  margin: 0 auto;
+  font: 14px;
+}
+
+input {
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  text-align: center;
+  font: 14px;
+  width: 60px;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.line {
+  fill: none;
+  stroke-width: 1.5px;
+}
+text {
+  font: bold 48px monospace;
+}
+
+.enter {
+  fill: green;
+}
+
+.update {
+  fill: #333;
+}
+
+.exit {
+  fill: brown;
+}
+</style>
+<body>
+
+  <svg width="960" height="500"></svg>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.2/signalr.min.js "></script>
+<script src="/js/UpdateEvent.js"></script>
+
+</body>
+
+</html>
