@@ -4,7 +4,12 @@ using System.Text;
 class Program
 {
     static tbllog logModel = null;
+#if DEBUG
     static string baseUrl = "https://localhost:44350/";
+#else
+    static string baseUrl = "http://127.0.0.1:3000/";
+#endif
+
     static void Main(string[] args)
     {
         while (true)

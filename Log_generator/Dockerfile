@@ -12,4 +12,4 @@ ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 
 WORKDIR /app
 COPY --from=build /app/publish-app /app
-ENTRYPOINT ["dotnet", "/app/RealTime_D3.dll"]
+ENTRYPOINT ["dotnet", "/app/Log_generator.dll"]

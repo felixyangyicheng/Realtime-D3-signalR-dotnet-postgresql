@@ -1,4 +1,3 @@
-//timeParse = d3.timeParse("%Y-%m-%dT%H:%M:%S%Z")
 let test = [{
     x: 5,
     y: 6

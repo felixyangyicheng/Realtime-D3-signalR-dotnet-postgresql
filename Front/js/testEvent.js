@@ -1,107 +1,69 @@
-//timeParse = d3.timeParse("%Y-%m-%dT%H:%M:%S%Z")
-const width = 960;
-const height = 500;
-
-const margin = { top: 20, right: 20, bottom: 20, left: 50 };
-
+"use strict";
+let connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:44350/loghub").build();
 
 let dataArray = [];
+let svg = d3.select("svg"),
+    width = +svg.attr("width"),
+    height = +svg.attr("height"),
+    g = svg.append("g").attr("transform", "translate(32," + (height / 2) + ")");
 
-
-//globals
-var dataIndex = 3;
-var xBuffer = 50;
-var yBuffer = 150;
-var lineLength = 400;
-
-
-//create main svg element
-var svgDoc = d3.select("body").append("svg")
-    .attr("height", height).attr("width", width)
-
-svgDoc.append("text")
-    .attr("x", xBuffer + (lineLength / 2))
-    .attr("y", 50)
-    .text("dataset");
-
-//create axis line
-svgDoc.append("line")
-    .attr("x1", xBuffer)
-    .attr("y1", yBuffer)
-    .attr("x1", xBuffer + lineLength)
-    .attr("y2", yBuffer)
-
-//create basic circles
-svgDoc.append("g").selectAll("circle")
-    .data(dataArray)
-    .enter()
-    .append("circle")
-    .attr("cx", function(d, i) {
-        var spacing = lineLength / (data);
-        return xBuffer + (i * spacing)
-    })
-    .attr("cy", yBuffer)
-    .attr("r", function(d, i) { return d });
-
-//button to swap over datasets
-d3.select("body").append("button")
-    .text("change data")
-    .on("click", function() {
-        pushData();
-    }); //end click function
-
-function updateGraphic(data) {
-    //select new data
-    // if (dataIndex == 3) {
-    //     dataIndex = 2;
-    // } else {
-    //     dataIndex = 3;
-    // }
-
-    //rejoin data
-
-    var circle = svgDoc.select("g").selectAll("circle")
+function update(data) {
+    let t = d3.transition()
+        .duration(750);
+    // JOIN new data with old elements.
+    let circle = g.selectAll("circle")
         .data(data);
-
-    circle
-        .exit()
-        .transition(1500)
-        .attr("fill", "red")
-        .attr("r", 0)
+    // EXIT old elements not present in new data.
+    circle.exit()
+        .attr("class", "exit")
+        .transition(t)
+        .attr("cy", d => (d.data.value - 60))
+        .style("fill-opacity", 1e-6)
         .remove();
-    //remove unneeded circles
-    circle.enter()
-        .append("circle")
-        .attr("r", 0)
-        .attr("cx", function(d, i) {
-            var spacing = lineLength / (data.length);
-            return xBuffer + (i * spacing)
-        })
-        .attr("cy", yBuffer)
-        // 就位
-        .transition()
-        .duration(1500)
-        .attr("r", function(d, i) { return d })
-        //放大
-    circle.transition()
-        .duration(500)
-        .attr("cx", function(d, i) {
-            var spacing = lineLength / (data.length);
-            return xBuffer + (i * spacing)
-        })
-        .attr("cy", yBuffer)
-        .attr("r", function(d, i) { return d });
+    // UPDATE old elements present in new data.
+    circle.attr("class", "update")
+        .attr("cy", d => (d.data.value - 60))
 
+    .attr("r", 5)
+        .style("fill-opacity", 1)
+        .transition(t)
+        .attr("cx", function(d, i) { return i * 32; });
+    // ENTER new elements present in new data.
 
-    //d3.select("text").text(eval(data));
+    circle.enter().append("circle")
+        .attr("class", "enter")
+        //.attr("dy", ".35em")
+        .attr("r", 5)
+        .attr("cy", 60)
+        .attr("cx", (d, i) => { return i * 32; })
+        .style("fill-opacity", 1e-6)
+        //.text((d) => { return d; })
+        .transition(t)
+        .attr("cy", d => (d.data.value - 60))
+        .style("fill-opacity", 1);
+    //console.log(data);
+
 }
 
-function pushData() {
-    dataArray.push(5);
-    if (dataArray.length > 10) {
-        dataArray.slice(0, 1)
+update(dataArray);
+connection.on("refreshlog", function(data) {
+    if (dataArray.length >= 20) {
+        dataArray.push({
+            data
+        });
+        dataArray = dataArray.slice(5, -(dataArray.length - (dataArray.length - 5)));
+        update(dataArray);
+    } else {
+        dataArray.push({
+            data
+        });
+        update(dataArray);
     }
-    updateGraphic(dataArray);
-}
+    console.log(dataArray);
+});
 
-setInterval(pushData(), 1500);
+connection
+    .start(() => console.log("connection on"))
+    .catch(function(err) {
+        return console.error(err.toString());
+    });
