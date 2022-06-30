@@ -1,5 +1,5 @@
 "use strict";
-let connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:44350/loghub").build();
+let connection = new signalR.HubConnectionBuilder().withUrl("http://192.168.1.11:3000/loghub").build();
 
 let dataArray = [];
 let svg = d3.select("svg"),
@@ -47,6 +47,7 @@ function update(data) {
 
 update(dataArray);
 connection.on("refreshlog", function(data) {
+
     if (dataArray.length >= 20) {
         dataArray.push({
             data
@@ -59,7 +60,7 @@ connection.on("refreshlog", function(data) {
         });
         update(dataArray);
     }
-    console.log(dataArray);
+
 });
 
 connection

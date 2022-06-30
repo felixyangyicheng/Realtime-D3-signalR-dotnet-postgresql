@@ -36,7 +36,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddCors(policy =>
 {
     policy.AddPolicy("CorsPolicy", opt => opt
-        .WithOrigins("https://localhost:7275", "http://127.0.0.1:5500/")
+        .WithOrigins("https://localhost:7275", "http://127.0.0.1:5500/", "http://heisreadonly.ddns.net:55554", "https://heisreadonly.ddns.net:54321")
         //.AllowAnyOrigin()
         .AllowAnyHeader()
         //.AllowAnyMethod()

@@ -7,7 +7,7 @@ class Program
 #if DEBUG
     static string baseUrl = "https://localhost:44350/";
 #else
-    static string baseUrl = "http://127.0.0.1:3000/";
+    static string baseUrl = "http://192.168.1.11:3000/";
 #endif
 
     static void Main(string[] args)
@@ -37,9 +37,9 @@ class Program
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                Console.WriteLine("{0}", "Error");
+                Console.WriteLine("{0}", e.Message );
             }
 
             Thread.Sleep(8000);
