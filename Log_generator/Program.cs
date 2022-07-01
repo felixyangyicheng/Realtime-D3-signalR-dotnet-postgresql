@@ -5,9 +5,9 @@ class Program
 {
     static tbllog logModel = null;
 #if DEBUG
-    static string baseUrl = "https://localhost:44350/";
-#else
     static string baseUrl = "http://192.168.1.11:3000/";
+#else
+    static string baseUrl = "https://192.168.1.11:443/";
 #endif
 
     static void Main(string[] args)

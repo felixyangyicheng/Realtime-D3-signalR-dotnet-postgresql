@@ -23,7 +23,7 @@ Welcome to your new app.
     private async Task StartHubConnection()
     {
         _hubConnection = new HubConnectionBuilder()
-            .WithUrl("http://192.168.1.11:3000/loghub")
+            .WithUrl("https://192.168.1.11:443/loghub")
             .Build();
         if (_hubConnection.State == HubConnectionState.Connected)
             Console.WriteLine("connection started");
