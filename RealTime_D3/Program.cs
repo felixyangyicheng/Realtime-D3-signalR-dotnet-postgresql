@@ -37,13 +37,14 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
 var connString = builder.Configuration.GetConnectionString("postgresql");
 
 builder.Services.AddDbContext<RealtimeDbContext>(options => options.UseNpgsql(connString));
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(policy =>
 {
     policy.AddPolicy("CorsPolicy", opt => opt
-        .WithOrigins("https://localhost:7275", "http://127.0.0.1:5500/", "http://heisreadonly.ddns.net", "https://heisreadonly.ddns.net")
+        .WithOrigins("https://localhost:7275", "http://127.0.0.1:*/", "http://heisreadonly.ddns.net", "https://heisreadonly.ddns.net")
         //.AllowAnyOrigin()
         .AllowAnyHeader()
         //.AllowAnyMethod()
@@ -118,7 +119,7 @@ else
 }
 app.UseRouting();
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseCors("CorsPolicy");
 
@@ -132,7 +133,13 @@ app.UseEndpoints(endpoints =>
 
 
 });
+using (var scope = app.Services.CreateScope()) // 07/10/2022 Yicheng update-database on startup
+{
+    var services = scope.ServiceProvider;
 
+    var context = services.GetRequiredService<RealtimeDbContext>();
+    context.Database.Migrate();
+}
 app.Run();
 
 app.UsePostgreSQLBroker();

@@ -1,0 +1,68 @@
+
+version: '1'
+services:
+
+  db:
+    image: postgres
+    container_name: db
+    environment:
+      POSTGRES_DATABASE: postgres
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 123456
+    expose:
+      - 5432
+    ports:
+      - '5432:5432'
+    # volumes:
+    #   - /data/example/mysql:/var/lib/mysql
+
+    restart: always
+
+    networks:
+      - backend
+
+  realtime_d3_api:
+    container_name: realtime_d3_api
+    depends_on:
+      - db
+    image: jai20aubts/realtime_d3_api
+    ports: 
+      - '8080:80'
+      - '8081:443'
+    restart: always
+    command: ["dotnet", "ef", "database update"]
+    links:
+      - db
+    networks:
+      - backend
+      - frontend
+
+  # realtime_d3_vue:
+  #   container_name: realtime_d3_wasm
+  #   depends_on:
+  #     - realtime_d3_api
+  #   image: jai20aubts/realtime_d3_wasm
+  #   ports: 
+  #     - '80:80'
+  #     - '443:443'
+  #   restart: always
+  #   links:
+  #     - realtime_d3_api
+  #   networks:
+  #     - frontend 
+  
+  log_generator:
+    container_name: log_generator
+    depends_on:
+      - realtime_d3_api
+    image: jai20aubts/log_generator
+    restart: always
+    links:
+      - realtime_d3_api
+    networks:
+      - frontend   
+networks:
+  backend:
+  frontend:
+
+

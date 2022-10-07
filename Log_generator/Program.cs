@@ -4,14 +4,14 @@ using System.Text;
 class Program
 {
     static tbllog logModel = null;
-#if DEBUG
-    static string baseUrl = "http://192.168.1.11:3000/";
-#else
-    static string baseUrl = "https://192.168.1.11:443/";
-#endif
+
+    static string baseUrl = "http://realtime_d3_api:8080/";
+
 
     static void Main(string[] args)
+        
     {
+        Console.WriteLine("running on " + baseUrl);
         while (true)
         {
             try
