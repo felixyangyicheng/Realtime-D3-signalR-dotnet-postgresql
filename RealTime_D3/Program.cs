@@ -44,13 +44,19 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddCors(policy =>
 {
     policy.AddPolicy("CorsPolicy", opt => opt
-        .WithOrigins("https://localhost:7275", "http://127.0.0.1:*/", "http://heisreadonly.ddns.net", "https://heisreadonly.ddns.net")
-        //.AllowAnyOrigin()
-        .AllowAnyHeader()
-        //.AllowAnyMethod()
-    .WithMethods("GET", "POST")
-        .AllowCredentials()
-        .SetIsOriginAllowed((host) => true)
+         //.WithOrigins("http://localhost:*/", "http://127.0.0.1:*/", "http://realtime_d3_client:80/","http://+:80/","http://heisreadonly.ddns.net", "https://heisreadonly.ddns.net", "http://log_generator:*/")
+         //.AllowAnyOrigin()
+         //.AllowAnyHeader()
+         //.AllowAnyMethod()
+         //.AllowAnyMethod()
+        .SetIsOriginAllowed(origin => true)
+           .AllowAnyHeader()
+           .AllowAnyMethod()
+           .AllowCredentials()
+
+    //.WithMethods("GET", "POST")
+    //.SetIsOriginAllowed((host)  => true)
+    // .AllowCredentials()
         );
 });
 builder.Services.AddAutoMapper(typeof(MapperConfig));
@@ -95,14 +101,14 @@ builder.Services.AddAuthentication(options =>
 });
 
 builder.Services.AddSignalR();
-if (!builder.Environment.IsDevelopment())
-{
-    builder.Services.AddHttpsRedirection(options =>
-    {
-        options.RedirectStatusCode = (int)HttpStatusCode.PermanentRedirect;
-        options.HttpsPort = 443;
-    });
-}
+// if (!builder.Environment.IsDevelopment())
+// {
+//     builder.Services.AddHttpsRedirection(options =>
+//     {
+//         options.RedirectStatusCode = (int)HttpStatusCode.PermanentRedirect;
+//         options.HttpsPort = 443;
+//     });
+// }
 var app = builder.Build();
 app.UseForwardedHeaders(); //https
 // Configure the HTTP request pipeline.
@@ -115,7 +121,9 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    app.UseHsts();
+   // app.UseHsts();
+        app.UseSwagger();
+    app.UseSwaggerUI();
 }
 app.UseRouting();
 

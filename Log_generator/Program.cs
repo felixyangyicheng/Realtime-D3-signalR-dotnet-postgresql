@@ -5,7 +5,8 @@ class Program
 {
     static tbllog logModel = null;
 
-    static string baseUrl = "http://realtime_d3_api:8080/";
+    static string baseUrl = "http://realtime_d3_api:80/";
+    //static string baseUrl = "http://localhost:8080/";
 
 
     static void Main(string[] args)
@@ -31,6 +32,7 @@ class Program
                             else
                             {
                                 Console.WriteLine("{0}", response);
+                                Console.WriteLine("{0}", response.StatusCode);
 
                             }
                         }
@@ -39,10 +41,10 @@ class Program
             }
             catch (Exception e)
             {
-                Console.WriteLine("{0}", e.Message );
+                Console.WriteLine("exception"+ " "+ e.Message);
             }
 
-            Thread.Sleep(8000);
+            Thread.Sleep(4000);
         }
     }
 }

@@ -1,10 +1,10 @@
 "use strict";
 
-var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:44350/loghub").build();
+var connection = new signalR.HubConnectionBuilder().withUrl("http://localhost:8080/loghub").build();
 
 
 
-connection.on("refreshlog", function(data) {
+connection.on("refreshLog", function(data) {
 
     var li = document.createElement("li");
     document.getElementById("messagesList").appendChild(li);

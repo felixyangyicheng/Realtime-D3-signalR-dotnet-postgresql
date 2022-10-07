@@ -23,7 +23,7 @@ Welcome to your new app.
     private async Task StartHubConnection()
     {
         _hubConnection = new HubConnectionBuilder()
-            .WithUrl("https://heisreadonly.ddns.net:55555/loghub")
+            .WithUrl("http://localhost:8080/loghub")
             .Build();
         if (_hubConnection.State == HubConnectionState.Connected)
             Console.WriteLine("connection started");
