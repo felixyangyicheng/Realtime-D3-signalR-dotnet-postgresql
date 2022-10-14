@@ -65,7 +65,9 @@ text {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.2/signalr.min.js "></script>
 <script >
   let connection = new signalR.HubConnectionBuilder().withUrl("http://localhost:8080/loghub").build();
-
+  var jqxhr = $.get( "http://localhost:8080/api/tbllog/realtime", function() {
+    alert( "success" );
+  });
 let dataArray = [];
 let svg = d3.select("svg"),
     width = +svg.attr("width"),
