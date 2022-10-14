@@ -11,17 +11,9 @@ const gy = sensors.append("g").attr("transform", "translate(20,0)")
     .attr("class", "sensor_yAxis")
 
 const gDot = sensors.append('g').attr("class", "gDot")
-// let dot = sensors.append('g').selectAll("circle")
-//     .data(dataArray)  // 
-//     .enter()
-//     .append("circle")
-//     .attr("cx", d => {
-//         return xscale(d.logDate)
-//     })
-//     .attr("cy", d => {
-//         return yscale(d.value);
-//     })
-//     .attr("r", 1.5)
+const gLine = sensors.append('g').attr("class", "gLine").append("path")
+.attr("stroke", "red").style("opacity", "0.4").style("stroke-width", 0.5).style("fill", "none")
+
 
 
 function update(data) {
@@ -33,6 +25,8 @@ function update(data) {
         .call(yAxis);
     let dot = gDot.selectAll("circle").data(data);
     let t = d3.transition().duration(750);
+    let t2 = d3.transition().duration(50);
+  
 
     dot.exit().attr("class", "exit")
         .transition(t)
@@ -63,7 +57,12 @@ function update(data) {
             dataArray.length > 100 ? color = "green" : color = "black";
             return color
         })
-
+  gLine.datum(data).transition(t2)
+    .attr("d", d3.line()
+          .x(d=> xscale(+d.logDate))
+          .y(d=> yscale(+d.value))
+         )
+    
 }
 
 update(dataArray);
