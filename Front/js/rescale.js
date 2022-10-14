@@ -25,15 +25,14 @@ const gLine = sensors.append('g').attr("class", "gLine").append("path")
 
 //#region update or init function
 function update(data) {
+    let dot = gDot.selectAll("circle").data(data);
+    let t = d3.transition().duration(1750);
     d3.select('.sensor_xAxis')
-        .transition()
+        .transition(t)
         .call(xAxis);
     d3.select(".sensor_yAxis")
-        .transition()
+        .transition(t)
         .call(yAxis);
-    let dot = gDot.selectAll("circle").data(data);
-    let t = d3.transition().duration(750);
-    let t2 = d3.transition().duration(50);
 
     dot.exit().attr("class", "exit")
         .transition(t)
@@ -43,10 +42,11 @@ function update(data) {
         .style("fill-opacity", 1e-6)
         .remove();
     dot.attr("class", "update")
+    .transition(t)
         .attr("cx", d => xscale(d.logDate))
         .attr("cy", d => yscale(d.value))
         .style("fill-opacity", 1)
-        .transition(t);
+        ;
 
     dot.enter().append("circle")
         .attr("class", "enter")
@@ -64,7 +64,7 @@ function update(data) {
             dataArray.length > 100 ? color = "green" : color = "black";
             return color
         })
-    gLine.datum(data).transition(t2)
+    gLine.datum(data).transition(t)
         .attr("d", d3.line()
             .x(d => xscale(+d.logDate))
             .y(d => yscale(+d.value))
@@ -75,8 +75,10 @@ function update(data) {
 update(dataArray);
 
 function updateScaleDomain(data) {
-    let Xmin = new Date(Date.now() - 60000);
+    let Xmin = d3.min(dataArray, d => d.logDate);
     let Xmax = Date.now();
+
+    console.log(Xmax-Xmin);
     let Ymin = d3.max(dataArray, d => d.value) + 20;
     let Ymax = d3.min(dataArray, d => d.value) - 20;
     xscale.domain([Xmin, Xmax]);
@@ -88,4 +90,4 @@ setInterval(function () {
     let data = { value: Math.random() * 100, logDate: new Date(Date.now()) };
     dataArray.push(data);
     updateScaleDomain(dataArray);
-}, 5000);//run this thang every 5 seconds
+}, 5000);//run this thang every 5  seconds
