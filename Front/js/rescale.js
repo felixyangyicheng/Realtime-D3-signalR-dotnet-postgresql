@@ -1,6 +1,6 @@
 let dataArray = [];
 //select svg element
-let sensors = d3.select("#sensors_chart"); 
+let sensors = d3.select("#sensors_chart");
 //#region x, y scales definition
 let xscale = d3.scaleTime().domain([new Date(Date.now() - 60000), Date.now()])//option + shift+ 5 pour [] sur apple
     .range([0, 500]);
@@ -42,7 +42,7 @@ function update(data) {
         .style("fill-opacity", 1e-6)
         .remove();
     dot.attr("class", "update")
-    .transition(t)
+        .transition(t)
         .attr("cx", d => xscale(d.logDate))
         .attr("cy", d => yscale(d.value))
         .style("fill-opacity", 1)
@@ -77,8 +77,24 @@ update(dataArray);
 function updateScaleDomain(data) {
     let Xmin = d3.min(dataArray, d => d.logDate);
     let Xmax = Date.now();
+    let interval = Xmax-Xmin  ;
 
-    console.log(Xmax-Xmin);
+    if (interval < 60000) // 1 minute
+    {
+        xAxis = d3.axisTop(xscale).ticks(d3.timeSecond.every(5));
+    }
+    else if (60002 < interval ||interval< 900000) // 15 minutes
+    {
+        xAxis = d3.axisTop(xscale).ticks(d3.timeSecond.every(30));
+    }
+    else if(900002< interval|| interval<1800000) //30 minutes
+    {
+        xAxis = d3.axisTop(xscale).ticks(d3.timeMinute.every(5));
+    }
+    else if(1800002< interval|| interval<3600000) //60 minutes
+    {
+        xAxis = d3.axisTop(xscale).ticks(d3.timeMinute.every(15));
+    }
     let Ymin = d3.max(dataArray, d => d.value) + 20;
     let Ymax = d3.min(dataArray, d => d.value) - 20;
     xscale.domain([Xmin, Xmax]);
