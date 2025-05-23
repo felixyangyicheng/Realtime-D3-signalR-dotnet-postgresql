@@ -3,7 +3,7 @@ using System.Text;
 
 class Program
 {
-    static Tbllog logModel = null;
+    static Tbllog logModel = new();
 
     static string baseUrl = "http://realtime_d3_api:80/";
     //static string baseUrl = "http://localhost:8080/";
@@ -53,7 +53,7 @@ public class Tbllog
 {
     public int Id { get; set; }
     public int Value { get; set; }
-    public string Detail { get; set; }
+    public string Detail { get; set; } = "";
     public DateTime LogDate { get; set; }
 }
 
