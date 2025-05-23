@@ -3,7 +3,7 @@ using System.Text;
 
 class Program
 {
-    static tbllog logModel = null;
+    static Tbllog logModel = null;
 
     static string baseUrl = "http://realtime_d3_api:80/";
     //static string baseUrl = "http://localhost:8080/";
@@ -23,7 +23,7 @@ class Program
                     using (var client = new HttpClient())
                     {
                         string contentType = "application/json";
-                        string PostUrl = baseUrl + "api/tbllog";
+                        string PostUrl = baseUrl + "api/Tbllog";
                         var content = new StringContent(JsonConvert.SerializeObject(logModel), Encoding.UTF8, contentType);
                         using (HttpResponseMessage response = client.PostAsync(PostUrl, content).Result)
                         {
@@ -49,7 +49,7 @@ class Program
     }
 }
 
-public class tbllog
+public class Tbllog
 {
     public int Id { get; set; }
     public int Value { get; set; }
@@ -59,9 +59,9 @@ public class tbllog
 
 static class Applog
 {
-    public static tbllog getlogData()
+    public static Tbllog getlogData()
     {
-        tbllog objdata = new tbllog()
+        Tbllog objdata = new Tbllog()
         {
             Detail = "Operation-Code~" + Utilities.RandomNumber(1, 1000),
             Value = Utilities.RandomNumber(1,100),

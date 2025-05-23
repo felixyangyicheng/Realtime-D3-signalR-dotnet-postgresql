@@ -11,9 +11,9 @@
 Welcome to your new app.
 
 @code{
-    private HubConnection _hubConnection;
+    private HubConnection _hubConnection { get; set; } = default!;
     [Inject]
-    public ILogRepository Repo { get; set; }
+    public ILogRepository Repo { get; set; } = default!;
     protected async override Task OnInitializedAsync()
     {
         await StartHubConnection();
@@ -29,7 +29,7 @@ Welcome to your new app.
             Console.WriteLine("connection started");
 
 
-        _hubConnection.On<tbllog>("refreshLog", (data) =>
+        _hubConnection.On<Tbllog>("refreshLog", (data) =>
         {
             Console.WriteLine(data.Value);
 

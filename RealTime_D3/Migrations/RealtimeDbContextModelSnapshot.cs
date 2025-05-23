@@ -252,7 +252,7 @@ namespace RealTime_D3.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("RealTime_D3.Models.tbllog", b =>
+            modelBuilder.Entity("RealTime_D3.Models.Tbllog", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

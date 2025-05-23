@@ -96,7 +96,7 @@ builder.Services.AddAuthentication(options =>
         ClockSkew = TimeSpan.Zero,
         ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
         ValidAudience = builder.Configuration["JwtSettings:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Key"]))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Key"]??throw new NullReferenceException("jwtSettingKey not set")))
     };
 });
 
@@ -150,4 +150,4 @@ using (var scope = app.Services.CreateScope()) // 07/10/2022 Yicheng update-data
 }
 app.Run();
 
-app.UsePostgreSQLBroker();
+await app.UsePostgreSQLBroker();

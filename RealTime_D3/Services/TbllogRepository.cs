@@ -4,7 +4,7 @@ using RealTime_D3.Models;
 
 namespace RealTime_D3.Services
 {
-    public class TbllogRepository : BaseRepository<tbllog>, ITbllogRepository
+    public class TbllogRepository : BaseRepository<Tbllog>, ITbllogRepository
     {
 
         private readonly RealtimeDbContext _db;

@@ -18,7 +18,7 @@ namespace WASM_Reatime_D3.Services
                 Console.WriteLine("Something went wrong with the response");
         }
 
-        public Task<tbllog> GetLog()
+        public Task<Tbllog> GetLog()
         {
             throw new NotImplementedException();
         }

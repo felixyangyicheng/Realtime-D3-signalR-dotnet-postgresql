@@ -8,7 +8,7 @@ using WASM_Reatime_D3;
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
-builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri("http://localhost:8080/api/tbllog/") });
+builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri("http://localhost:8080/api/Tbllog/") });
 builder.Services.AddScoped<ILogRepository, LogRepository>();
 
 

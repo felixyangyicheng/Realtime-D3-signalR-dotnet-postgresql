@@ -9,8 +9,8 @@ namespace RealTime_D3.Configurations
         public MapperConfig()
         {
 
-            CreateMap<tbllogCreateDto, tbllog>().ReverseMap();
-            CreateMap<tbllogDto, tbllog>().ReverseMap();
+            CreateMap<TbllogCreateDto, Tbllog>().ReverseMap();
+            CreateMap<TbllogDto, Tbllog>().ReverseMap();
         }
     }
 }

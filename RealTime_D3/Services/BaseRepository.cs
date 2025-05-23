@@ -45,9 +45,11 @@ namespace RealTime_D3.Services
         {
             if (id == null)
             {
-                return null;
+                throw new NullReferenceException(" null reference ");
             }
-            return await _db.Set<T>().FindAsync(id);
+            else { 
+                return await _db.Set<T>().FindAsync(id)?? throw new NullReferenceException(" null reference ");
+            }
         }
 
         //public async Task<VirtualizeResponse<TResult>> GetAllAsync<TResult>(QueryParameters queryParam)

@@ -7,7 +7,7 @@ namespace RealTime_D3.Models
 {
     public class RealtimeDbContext : IdentityDbContext
     {
-        public DbSet<tbllog> Tbllogs { get; set; }
+        public DbSet<Tbllog> Tbllogs { get; set; }
         public RealtimeDbContext(DbContextOptions<RealtimeDbContext> options)
    : base(options)
         {

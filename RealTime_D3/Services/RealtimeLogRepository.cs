@@ -17,7 +17,7 @@ namespace RealTime_D3.Services
         public RealtimeLogRepository(IConfiguration configuration,
                                     IHubContext<LogHub> context)
         {
-            connectionString = configuration.GetConnectionString("postgresql");
+            connectionString = configuration.GetConnectionString("postgresql")??throw new NullReferenceException("connection string postgresql not set");
             _context = context;
         }
         public async Task GetLastLog()
@@ -43,19 +43,19 @@ namespace RealTime_D3.Services
         private void LogNotificationHelper(object sender, NpgsqlNotificationEventArgs e)
         {
             //Deserialize Payload Data 
-            var dataPayload = JsonConvert.DeserializeObject<tbllogInfo>(e.Payload);
+            var dataPayload = JsonConvert.DeserializeObject<TbllogInfo>(e.Payload);
             //Console.WriteLine("{0}", dataPayload.table + " :: " + dataPayload.action + " :: " + dataPayload.data.Detail+" :: " + dataPayload.data.Value);
             Console.WriteLine("{0}", e.Payload);
 
-            _context.Clients.All.SendAsync("refreshLog", dataPayload.data);
+            _context.Clients.All.SendAsync("refreshLog", dataPayload?.data);
 
             //Notify Client using SignalR
         }
     }
-    public class tbllogInfo
+    public class TbllogInfo
     {
-        public string table { get; set; }
-        public string action { get; set; }
-        public tbllog data { get; set; }
+        public string table { get; set; } = "";
+        public string action { get; set; } = "";
+        public Tbllog data { get; set; } = new();
     }
 }

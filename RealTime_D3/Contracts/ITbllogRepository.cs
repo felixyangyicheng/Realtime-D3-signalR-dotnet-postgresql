@@ -2,7 +2,7 @@
 
 namespace RealTime_D3.Contracts
 {
-    public interface ITbllogRepository:IRepositoryBase<tbllog>
+    public interface ITbllogRepository:IRepositoryBase<Tbllog>
     {
     }
 }

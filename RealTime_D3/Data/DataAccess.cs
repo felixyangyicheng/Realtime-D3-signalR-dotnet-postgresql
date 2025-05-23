@@ -11,7 +11,7 @@ namespace RealTime_D3.Data
 
 
 
-        public static int saveData(tbllog data)
+        public static int saveData(Tbllog data)
         {
             int result = 0;
             try
@@ -50,10 +50,10 @@ namespace RealTime_D3.Data
             return result;
         }
 
-        public static List<tbllog> getLogData()
+        public static List<Tbllog>? getLogData()
         {
 
-            List<tbllog> result = null;
+            List<Tbllog> result = new();
             try
             {
                 sql = string.Empty;
@@ -67,7 +67,7 @@ namespace RealTime_D3.Data
                     cmd.CommandText = sql;
                     cmd.CommandType = CommandType.Text;
                     cmd.Connection = con;
-                    result = Utilities.DataReaderMapToList<tbllog>(cmd.ExecuteReader());
+                    result = Utilities.DataReaderMapToList<Tbllog>(cmd.ExecuteReader());
                 }
             }
             catch (Exception ex)

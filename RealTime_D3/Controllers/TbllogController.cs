@@ -13,16 +13,16 @@ namespace RealTime_D3.Controllers
     public class TbllogController : ControllerBase
     {
         private readonly ILogger<TbllogController> _logger;
-        private readonly ITbllogRepository _tbllogRepository;
+        private readonly ITbllogRepository _TbllogRepository;
         private readonly IRealtimeLogRepository _realtime;
 
         private readonly IMapper _mapper;
         //private readonly IEmailSender _emailSender;
 
-        public TbllogController(ILogger<TbllogController> logger, ITbllogRepository tbllogRepository, IRealtimeLogRepository realtime , IMapper mapper)
+        public TbllogController(ILogger<TbllogController> logger, ITbllogRepository TbllogRepository, IRealtimeLogRepository realtime , IMapper mapper)
         //, IEmailSender emailSender)
         {
-            _tbllogRepository = tbllogRepository;
+            _TbllogRepository = TbllogRepository;
             _realtime = realtime;
             _mapper = mapper;
             _logger = logger;
@@ -58,8 +58,8 @@ namespace RealTime_D3.Controllers
         {
             try
             {
-                var result = await _tbllogRepository.GetAsync(id);
-                var response = _mapper.Map<tbllogDto>(result);
+                var result = await _TbllogRepository.GetAsync(id);
+                var response = _mapper.Map<TbllogDto>(result);
                 return Ok(response);
             }
             catch (Exception ex)
@@ -75,12 +75,12 @@ namespace RealTime_D3.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<tbllogCreateDto>> PostLog(tbllogCreateDto dto)
+        public async Task<ActionResult<TbllogCreateDto>> PostLog(TbllogCreateDto dto)
         {
             try
             {
-                var log = _mapper.Map<tbllog>(dto);
-                await _tbllogRepository.AddAsync(log);
+                var log = _mapper.Map<Tbllog>(dto);
+                await _TbllogRepository.AddAsync(log);
 
                 return CreatedAtAction(nameof(PostLog), new { id = log.Id }, log);
             }
@@ -97,7 +97,7 @@ namespace RealTime_D3.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> PutLog(int id, tbllogDto dto)
+        public async Task<IActionResult> PutLog(int id, TbllogDto dto)
         {
             if (id != dto.Id)
             {
@@ -105,7 +105,7 @@ namespace RealTime_D3.Controllers
                 return BadRequest();
             }
 
-            var log = await _tbllogRepository.GetAsync(id);
+            var log = await _TbllogRepository.GetAsync(id);
 
             if (log == null)
             {
@@ -117,11 +117,11 @@ namespace RealTime_D3.Controllers
 
             try
             {
-                await _tbllogRepository.UpdateAsync(log);
+                await _TbllogRepository.UpdateAsync(log);
             }
             catch (DbUpdateConcurrencyException ex)
             {
-                if (!await _tbllogRepository.Exists(id))
+                if (!await _TbllogRepository.Exists(id))
                 {
                     return NotFound();
                 }

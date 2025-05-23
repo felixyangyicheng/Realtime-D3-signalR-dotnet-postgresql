@@ -10,7 +10,7 @@ namespace RealTime_D3.Extensions
         public static async Task UsePostgreSQLBroker(this IApplicationBuilder builder)
         {
             var broker = new PostgreSQLBroker();
-            broker.BrokerConfig();
+            await broker.BrokerConfig();
         }
     }
 
@@ -41,17 +41,17 @@ namespace RealTime_D3.Extensions
         private void LogNotificationHelper(object sender, NpgsqlNotificationEventArgs e)
         {
             //Deserialize Payload Data 
-            var dataPayload = JsonConvert.DeserializeObject<tbllogInfo>(e.Payload);
-            Console.WriteLine("{0}", dataPayload.table + " :: " + dataPayload.action + " :: " + dataPayload.data.Value);
+            var dataPayload = JsonConvert.DeserializeObject<TbllogInfo>(e.Payload);
+            Console.WriteLine("{0}", dataPayload?.table + " :: " + dataPayload?.action + " :: " + dataPayload?.data.Value);
 
             //Notify Client using SignalR
         }
     }
 
-    public class tbllogInfo
+    public class TbllogInfo
     {
-        public string table { get; set; }
-        public string action { get; set; }
-        public tbllog data { get; set; }
+        public string table { get; set; } = "";
+        public string action { get; set; } = "";
+        public Tbllog data { get; set; } = new();
     }
 }
