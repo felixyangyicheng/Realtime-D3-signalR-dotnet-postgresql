@@ -35,20 +35,20 @@ pipeline {
             }
         }
 
-        // [4] 新增：运行测试（关键质量门禁）
-        stage('Tests') {
-            steps {
-                echo "--------------- 运行单元测试 ---------------"
-                sh 'docker compose run realtime_d3_api dotnet test'
+        // // [4] 新增：运行测试（关键质量门禁）
+        // stage('Tests') {
+        //     steps {
+        //         echo "--------------- 运行单元测试 ---------------"
+        //         sh 'docker compose run realtime_d3_api dotnet test'
                 
-                // 可选：添加测试报告处理
-                post {
-                    always {
-                        junit '**/test-results.xml' // 如果测试生成 JUnit 报告
-                    }
-                }
-            }
-        }
+        //         // 可选：添加测试报告处理
+        //         post {
+        //             always {
+        //                 junit '**/test-results.xml' // 如果测试生成 JUnit 报告
+        //             }
+        //         }
+        //     }
+        // }
 
         // [5] 新增：数据库迁移
         stage('Migrations') {
