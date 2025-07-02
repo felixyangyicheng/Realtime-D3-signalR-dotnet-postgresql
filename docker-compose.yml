@@ -58,7 +58,7 @@ services:
     depends_on:
       - realtime_d3_api
     build:
-      context: ./WASM_Realtime_D3
+      context: ./WASM_Reatime_D3
       dockerfile: Dockerfile
     ports: 
       - '8088:80'
