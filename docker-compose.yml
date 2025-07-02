@@ -3,7 +3,7 @@ version: '1'
 services:
 
   db:
-    image: postgres
+    image: postgres-alpine
     container_name: db
     environment:
       POSTGRES_DATABASE: postgres
@@ -23,7 +23,9 @@ services:
     container_name: realtime_d3_api
     depends_on:
       - db
-    image: jai20aubts/realtime_d3_api
+    build:
+      context: ./RealTime_D3
+      dockerfile: Dockerfile
     environment:
         - Logging__Loglevel__Default=Debug
         - Logging__Loglevel__Microsoft.AspNetCore=Debug
@@ -43,7 +45,9 @@ services:
     container_name: log_generator
     depends_on:
       - realtime_d3_api
-    image: jai20aubts/log_generator
+    build:
+      context: ./Log_generator
+      dockerfile: Dockerfile
     restart: always
     links:
       - realtime_d3_api
@@ -53,9 +57,11 @@ services:
     container_name: realtime_d3_client
     depends_on:
       - realtime_d3_api
-    image: jai20aubts/realtime_d3_client
+    build:
+      context: ./WASM_RealTime_D3
+      dockerfile: Dockerfile
     ports: 
-      - '80:80'
+      - '8088:80'
     restart: always
     links:
       - realtime_d3_api
