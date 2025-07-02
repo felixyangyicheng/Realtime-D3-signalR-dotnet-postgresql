@@ -12,4 +12,4 @@ RUN dotnet publish -o /app/published-app
 FROM mcr.microsoft.com/dotnet/aspnet:10.0-preview-alpine as runtime
 WORKDIR /app
 COPY --from=build /app/published-app /app
-ENTRYPOINT ["dotnet", "/app/RealTime_D3.dll"]
+ENTRYPOINT ["dotnet", "/app/WASM_Reatime_D3.dll"]
