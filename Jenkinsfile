@@ -31,10 +31,10 @@ pipeline {
             steps {
                 echo "--------------- 使用 docker-compose 部署服务 ---------------"
                 dir(env.COMPOSE_PROJECT_DIR) {
-                    sh 'docker-compose down || true'  // 关闭旧容器
-                    sh 'docker-compose pull'          // 拉取最新镜像（如果使用远程镜像）
-                    sh 'docker-compose build'         // 构建所有服务
-                    sh 'docker-compose up -d'         // 后台启动所有服务
+                    sh 'docker compose down || true'  // 关闭旧容器
+                    sh 'docker compose pull'          // 拉取最新镜像（如果使用远程镜像）
+                    sh 'docker compose build'         // 构建所有服务
+                    sh 'docker compose up -d'         // 后台启动所有服务
                 }
             }
         }
