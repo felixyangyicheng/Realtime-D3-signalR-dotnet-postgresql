@@ -8,7 +8,7 @@ using RealTime_D3.Models;
 
 namespace RealTime_D3.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[Controller]")]
     [ApiController]
     public class TbllogController : ControllerBase
     {

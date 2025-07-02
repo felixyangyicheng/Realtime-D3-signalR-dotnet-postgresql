@@ -14,7 +14,7 @@ namespace RealTime_D3.Extensions
         }
     }
 
-    internal class PostgreSQLBroker
+    public class PostgreSQLBroker
     {
         public async Task BrokerConfig()
         {
