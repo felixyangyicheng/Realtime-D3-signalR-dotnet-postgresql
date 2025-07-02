@@ -3,7 +3,7 @@ version: '1'
 services:
 
   db:
-    image: postgres-alpine
+    image: postgres:alpine
     container_name: db
     environment:
       POSTGRES_DATABASE: postgres
