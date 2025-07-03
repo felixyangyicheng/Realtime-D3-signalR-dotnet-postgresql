@@ -17,7 +17,7 @@ namespace RealTime_D3.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.2")
+                .HasAnnotation("ProductVersion", "10.0.0-preview.5.25277.114")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -46,22 +46,6 @@ namespace RealTime_D3.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "b5a136a0-dc53-4e4e-b5e0-68d10b70fe02",
-                            ConcurrencyStamp = "a598d057-9622-4c66-af81-de0c52e65649",
-                            Name = "Monitor",
-                            NormalizedName = "MONITEUR"
-                        },
-                        new
-                        {
-                            Id = "d9e1208e-5301-4fc9-8db0-f2562714a991",
-                            ConcurrencyStamp = "fc2dab1c-0e5d-443d-b85c-2ba1fe1739bb",
-                            Name = "Administrator",
-                            NormalizedName = "ADMINISTRATOR"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -99,10 +83,6 @@ namespace RealTime_D3.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Email")
@@ -155,8 +135,6 @@ namespace RealTime_D3.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -219,18 +197,6 @@ namespace RealTime_D3.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "43c38655-9aa0-48b4-aab1-7cd175500f09",
-                            RoleId = "d9e1208e-5301-4fc9-8db0-f2562714a991"
-                        },
-                        new
-                        {
-                            UserId = "5bda2409-9516-4983-90a3-08363427e744",
-                            RoleId = "b5a136a0-dc53-4e4e-b5e0-68d10b70fe02"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -273,59 +239,6 @@ namespace RealTime_D3.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tbllogs");
-                });
-
-            modelBuilder.Entity("RealTime_D3.Models.ApiUser", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasDiscriminator().HasValue("ApiUser");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "43c38655-9aa0-48b4-aab1-7cd175500f09",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "98b03461-e0b5-41c6-a655-9035ef7817b6",
-                            Email = "yicheng.yang@ermo-tech.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "YICHENG.YANG@ERMO-TECH.COM",
-                            NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAED8itZZDRNZNdooSuErQQvUVod1aZyXdBc3TdaE6EuyubJG2jh4ln5c7H9qQ5+N8/g==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "4af55488-8a67-4e4f-a0c5-227ad009406c",
-                            TwoFactorEnabled = false,
-                            UserName = "Admin",
-                            FirstName = "System",
-                            LastName = "Admin"
-                        },
-                        new
-                        {
-                            Id = "5bda2409-9516-4983-90a3-08363427e744",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "bbe549e6-dae6-43a7-af6c-bed22345876f",
-                            Email = "user@ermo-tech.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "USER@ERMO-TECH.COM",
-                            NormalizedUserName = "USER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIpWszrlvDyMuQRvW0N1RL8+5PIzS4ueTAfBunMLb+LC4AUXsJZl4I84DEuWr0uaVg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "90acc0c0-d354-487d-9ce3-81b452aecf4d",
-                            TwoFactorEnabled = false,
-                            UserName = "user",
-                            FirstName = "System",
-                            LastName = "User"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

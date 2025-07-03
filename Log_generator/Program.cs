@@ -5,9 +5,13 @@ class Program
 {
     static Tbllog logModel = new();
 
-    static string baseUrl = "http://realtime_d3_api:80/";
-    //static string baseUrl = "http://localhost:8080/";
+#if DEBUG
 
+    static string baseUrl = "http://localhost:8080/";
+#else
+    static string baseUrl = "http://realtime_d3_api:80/";
+
+#endif
 
     static void Main(string[] args)
         
