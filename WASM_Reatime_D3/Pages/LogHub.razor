@@ -5,11 +5,28 @@
 @inject IConfiguration Configuration
 @implements IAsyncDisposable
 
+
+
+<ApexChart TItem="Tbllog"
+           Title="Sample Data" @ref=chart>
+
+    <ApexPointSeries TItem="Tbllog"
+                     Items="logs"
+                     Name="Net Profit"
+                     SeriesType="SeriesType.Line"
+                     XValue="e => e.LogDate"
+                     YValue="e=> e.Value" />
+
+</ApexChart>
+
+
+
 @code {
     private HubConnection? _hubConnection;
     private Tbllog? _currentLog;
-
-    protected override async Task OnInitializedAsync()
+    private List<Tbllog?> logs { get; set; } = new();
+    private ApexChart<Tbllog?> chart = default!;
+    protected override async Task OnParametersSetAsync()
     {
         await StartHubConnection();
     }
@@ -17,8 +34,8 @@
     private async Task StartHubConnection()
     {
 #if DEBUG
-        string hubUrl = Configuration.GetValue<string>("logHubUrl.Dev")
-            ?? throw new ArgumentNullException("logHubUrl.Dev");
+    string hubUrl = Configuration.GetValue<string>("logHubUrl.Dev")
+    ?? throw new ArgumentNullException("logHubUrl.Dev");
 #else
         string hubUrl = Configuration.GetValue<string>("logHubUrl")
             ?? throw new ArgumentNullException("logHubUrl");
@@ -34,10 +51,12 @@
             })
             .Build();
 
-        _hubConnection.On<Tbllog>("RefreshLog", log =>
+        _hubConnection.On<Tbllog>("RefreshLogFromHub", async log =>
         {
             _currentLog = log;
-            StateHasChanged(); // Rafraîchir l'UI
+            logs.Add(log);
+            await chart.RenderAsync();
+            await InvokeAsync(StateHasChanged); // Rafraîchir l'UI
             Console.WriteLine($"Nouveau log reçu: {log.Detail}");
         });
 

@@ -78,7 +78,9 @@ builder.Host.UseSerilog((ctx, lc) =>
 builder.Services.AddScoped<ITbllogRepository, TbllogRepository>();
 builder.Services.AddScoped<IRealtimeLogRepository, RealtimeLogRepository>();
 
-
+builder.Services.AddSingleton<PostgresListenerService>();
+builder.Services.AddHostedService<PostgresListenerService>(provider => 
+    provider.GetRequiredService<PostgresListenerService>());
 
 builder.Services.AddAuthentication(options =>
 {
