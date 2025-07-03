@@ -26,6 +26,19 @@ namespace RealTime_D3.Services
             await using var con = new NpgsqlConnection(connectionString);
             await con.OpenAsync();
             con.Notification += LogNotificationHelper;
+
+
+            //using var cmd = new NpgsqlCommand("LISTEN lastlogchange;", _connection);
+            //await cmd.ExecuteNonQueryAsync();
+
+            //// Démarrer une tâche d'écoute permanente
+            //_ = Task.Run(async () =>
+            //{
+            //    while (true)
+            //    {
+            //        await _connection.WaitAsync();
+            //    }
+            //});
             await using (var cmd = new NpgsqlCommand())
             {
                 cmd.CommandText = "LISTEN lastlogchange;";

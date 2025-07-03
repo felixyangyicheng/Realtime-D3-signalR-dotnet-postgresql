@@ -1,0 +1,60 @@
+﻿@page "/loghub"
+
+@using Microsoft.AspNetCore.SignalR.Client
+@using WASM_Reatime_D3.Models
+@inject IConfiguration Configuration
+@implements IAsyncDisposable
+
+@code {
+    private HubConnection? _hubConnection;
+    private Tbllog? _currentLog;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await StartHubConnection();
+    }
+
+    private async Task StartHubConnection()
+    {
+#if DEBUG
+        string hubUrl = Configuration.GetValue<string>("logHubUrl.Dev")
+            ?? throw new ArgumentNullException("logHubUrl.Dev");
+#else
+        string hubUrl = Configuration.GetValue<string>("logHubUrl")
+            ?? throw new ArgumentNullException("logHubUrl");
+#endif
+
+        _hubConnection = new HubConnectionBuilder()
+            .WithUrl(hubUrl)
+            .WithAutomaticReconnect(new[] {
+                TimeSpan.Zero,
+                TimeSpan.FromSeconds(2),
+                TimeSpan.FromSeconds(5),
+                TimeSpan.FromSeconds(10)
+            })
+            .Build();
+
+        _hubConnection.On<Tbllog>("RefreshLog", log =>
+        {
+            _currentLog = log;
+            StateHasChanged(); // Rafraîchir l'UI
+            Console.WriteLine($"Nouveau log reçu: {log.Detail}");
+        });
+
+        _hubConnection.Reconnected += connectionId =>
+        {
+            Console.WriteLine($"Reconnecté au hub: {connectionId}");
+            return Task.CompletedTask;
+        };
+
+        await _hubConnection.StartAsync();
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_hubConnection != null)
+        {
+            await _hubConnection.DisposeAsync();
+        }
+    }
+}

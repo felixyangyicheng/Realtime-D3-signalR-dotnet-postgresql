@@ -1,5 +1,5 @@
 ﻿@page "/"
-
+        @inject IConfiguration configuration 
 @using WASM_Reatime_D3.Contracts
 
 @using Microsoft.AspNetCore.SignalR.Client
@@ -22,8 +22,15 @@ Welcome to your new app.
     }
     private async Task StartHubConnection()
     {
+        #if DEBUG
+
+        string hubUrl = configuration.GetValue<string>("logHubUrl.Dev") ?? throw new ArgumentNullException(nameof(hubUrl));
+        #else
+        string hubUrl = configuration.GetValue<string>("logHubUrl") ?? throw new ArgumentNullException(nameof(hubUrl));
+
+        #endif
         _hubConnection = new HubConnectionBuilder()
-            .WithUrl("http://localhost:8080/loghub")
+            .WithUrl(hubUrl)
             .Build();
         if (_hubConnection.State == HubConnectionState.Connected)
             Console.WriteLine("connection started");
